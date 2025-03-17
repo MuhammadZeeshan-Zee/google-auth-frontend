@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 function Login() {
   const [email, setEmail] = useState("");
@@ -26,7 +25,6 @@ function Login() {
   };
 
   const handleSubmit = () => {
-    console.log("handle submit");
     if(!email && !password){
     toast.error("Email and Password are required!");
       return;
@@ -57,12 +55,15 @@ function Login() {
   const handleSuccess = async (response) => {
     try {
         const { credential } = response;
-        console.log("credential",credential);
-        
-        const { data } = await axios.post("http://localhost:4000/user/auth/google", { token: credential });
-
-        console.log("Login Success:", data);
-        localStorage.setItem("token", data.token);
+        const { data } = await axios.post("http://localhost:4000/user/oauth", { token: credential });
+        console.log("data",data);
+        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
+          if(data.user){
+          toast.success("Login Successful!");
+          navigate("/home")
+        }
     } catch (error) {
         console.error("Login Failed:", error);
     }

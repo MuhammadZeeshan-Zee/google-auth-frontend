@@ -29,12 +29,14 @@ import Login from './Pages/Login'
 import Home from './Pages/Home'
 import './App.css'
 import { Route, Routes } from "react-router-dom";
+import Profile from './Pages/Profile';
 const App = () => {
   return (
     <div className='mx-[100px] flex justify-center'>
           <Routes>
           <Route index element={<Login />} />
           <Route path='/home' element={<Home />} />
+          <Route path='/profile' element={<Profile />} />
           </Routes>
     </div>
   )
