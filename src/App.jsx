@@ -32,7 +32,7 @@ import { Route, Routes } from "react-router-dom";
 import Profile from './Pages/Profile';
 const App = () => {
   return (
-    <div className='mx-[100px] flex justify-center'>
+    <div className=' flex justify-center'>
           <Routes>
           <Route index element={<Login />} />
           <Route path='/home' element={<Home />} />

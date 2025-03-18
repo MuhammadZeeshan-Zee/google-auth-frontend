@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { GoogleLogin } from '@react-oauth/google';
-import axios from "axios";
+// import { GoogleLogin } from '@react-oauth/google';
+// import axios from "axios";
+import GoogleLogin from "../components/GoogleLogin";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,22 +53,22 @@ function Login() {
     toast.success("Login Successful!");
     navigate("/home");
   };
-  const handleSuccess = async (response) => {
-    try {
-        const { credential } = response;
-        const { data } = await axios.post("http://localhost:4000/user/oauth", { token: credential });
-        console.log("data",data);
-        localStorage.setItem("accessToken", data.accessToken);
-        localStorage.setItem("refreshToken", data.refreshToken);
-        localStorage.setItem("user", JSON.stringify(data.user));
-          if(data.user){
-          toast.success("Login Successful!");
-          navigate("/home")
-        }
-    } catch (error) {
-        console.error("Login Failed:", error);
-    }
-};
+//   const handleSuccess = async (response) => {
+//     try {
+//         const { credential } = response;
+//         const { data } = await axios.post("http://localhost:4000/user/oauth", { token: credential });
+//         console.log("data",data);
+//         localStorage.setItem("accessToken", data.accessToken);
+//         localStorage.setItem("refreshToken", data.refreshToken);
+//         localStorage.setItem("user", JSON.stringify(data.user));
+//           if(data.user){
+//           toast.success("Login Successful!");
+//           // navigate("/home")
+//         }
+//     } catch (error) {
+//         console.error("Login Failed:", error);
+//     }
+// };
 
 //   credentialResponse => {
 //     console.log("credentialResponse",credentialResponse);
@@ -108,12 +109,13 @@ function Login() {
       >
         Login
       </button>
-      <GoogleLogin
+      {/* <GoogleLogin
         onSuccess={handleSuccess}
-  onError={() => {
-    console.log('Login Failed');
+        onError={() => {
+        console.log('Login Failed');
   }}
-/>
+/> */}
+<GoogleLogin/>
     </div>
   );
 }
