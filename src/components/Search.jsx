@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const Search = () => {
@@ -8,13 +9,13 @@ const Search = () => {
     if (!query) return alert("Please enter a search term!");
 
     try {
-      const response = await fetch(`http://localhost:4000/youtube/api/search?query=${query}`);
+      const response = await axios.get(`http://localhost:4000/youtube/api/search?query=${query}`);
       console.log("response",response);
       
-      const data = await response.json();
-      console.log("data",data,);
+    //   const data = await response.json();
+      console.log("data",response.data,);
       
-      setResults(data.items || []);
+      setResults(response.data.items || []);
     } catch (error) {
       console.error("Error fetching search results:", error);
     }
